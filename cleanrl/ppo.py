@@ -25,8 +25,11 @@ from torch.utils.tensorboard import SummaryWriter
 
 # ===================== load the reward module ===================== #
 import sys
+sys.path.insert(0, "/home/zeus/content/MinAtar")
 sys.path.append("../")
 from rllte.xplore.reward import RND, E3B
+from minatar.gym import register_envs
+register_envs()
 # ===================== load the reward module ===================== #
 import buffer_gap
 
