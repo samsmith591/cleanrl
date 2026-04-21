@@ -121,7 +121,7 @@ def make_env(env_id, idx, capture_video, run_name):
             env = gym.make(env_id, render_mode="rgb_array")
             env = gym.wrappers.RecordVideo(env, f"videos/{run_name}")
         else:
-            env = gym.make(env_id, sticky_action_prob=0.0, difficulty_ramping=False)
+            env = gym.make(env_id)
         import buffer_gap
         env = buffer_gap.RecordEpisodeStatisticsV2(env)
         return env
@@ -420,7 +420,7 @@ if __name__ == "__main__":
             writer.add_scalar("charts/SPS", int(global_step / (time.time() - start_time)), global_step)
             #====================== log reward statistics ===================== #
             writer.add_scalar("charts/reward mean", rewards.mean(), global_step)
-            writer.add_scalar("charts/reward top 95%", torch.mean(torch.topk(rewards.flatten(), 500)[0]), global_step)
+            writer.add_scalar("charts/reward top 95%", torch.mean(torch.topk(rewards.flatten(), min(500, rewards.numel()))[0]), global_step)
             writer.add_scalar("charts/return mean", rewards.mean(dim=0).mean(), global_step)
             # if torch.mean(torch.std(rewards, dim=0)) > 0:
             #     writer.add_scalar("charts/avg_reward_traj top 95%", torch.mean(torch.topk(rewards.mean(dim=0).flatten(), 2)[0]), global_step)
