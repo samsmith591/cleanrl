@@ -124,7 +124,7 @@ def make_env(env_id, idx, capture_video, run_name):
             env = gym.make(env_id, render_mode="rgb_array")
             env = gym.wrappers.RecordVideo(env, f"videos/{run_name}")
         else:
-            env = gym.make(env_id)
+            env = gym.make(env_id, sticky_action_prob=0.0, difficulty_ramping=False)
         import buffer_gap
         env = buffer_gap.RecordEpisodeStatisticsV2(env)
         return env

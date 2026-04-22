@@ -33,3 +33,13 @@ Based on arXiv:2508.01329 (Berseth et al.)
 
 - Run ID: tsbaq6v3 (completed)
 - Config: `--total-timesteps 500000 --track`
+
+### DQN Improvements (v2)
+
+**Changes from baseline to reduce sub-optimality gap:**
+
+- Learning rate: 2.5e-4 → **1e-4** (more stable updates)
+- Exploration fraction: 0.25 → **0.50** (longer exploration)
+- Buffer size: 100k → **500k** (more diverse experience)
+
+**Hypothesis:** More exploration + slower learning + larger buffer = better exploitation of good experience
